@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const Form = () => {
+const Form = ({saveSearchFromUser}) => {
 
     const [search, saveSearch] = useState(
         {
@@ -21,13 +21,13 @@ const Form = () => {
             return;
         }
         saveError(false);
+        saveSearchFromUser(search);
     }
         
     return(
         <div className="bg-info">
             <div className="container">
-            {error ? <p className="alert alert-danger text-center p-2">Please introduce an artist's name AND a song</p> : ''}
-
+            {error ? <p className="alert alert-danger text-center p-2">Please introduce an artist's name AND a song</p> : null}
                 <div className="row">
                     <form 
                         className="col card text-white bg-transparent mb-5 pt-5 pb-2"
