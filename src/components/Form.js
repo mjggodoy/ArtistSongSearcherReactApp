@@ -22,7 +22,6 @@ const Form = ({saveSearchFromUser, errorApi}) => {
             saveError(true);
             return;
         }
-    
         saveError(false);
         saveSearchFromUser(search);
     }
