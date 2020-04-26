@@ -6,8 +6,7 @@ function App() {
 
   const [searchFromUser, saveSearchFromUser] = useState({});
   const [resultFromApi, saveresultFromApi] = useState({});
-
-  const [errorApi, saveErrorApi] = useState();
+  const [errorApi, saveErrorApi] = useState('');
 
 
   useEffect(() => {
@@ -23,6 +22,7 @@ function App() {
     const url = `https://api.lyrics.ovh/v1/${searchFromUser.musicTeam}/${searchFromUser.song}`;
     await axios.get(url).
         then((response) => {
+          saveErrorApi('');
           console.log(response.data);
           saveresultFromApi(response.data);
           return;
@@ -30,7 +30,8 @@ function App() {
       .catch((error) => {
         if (error.response) {
             if (error.response.status === 404){
-              const error404Message = error.response.data;
+              console.log(error.response.data.error);
+              const error404Message = error.response.data.error;
               saveErrorApi(error404Message);
             }
             console.log(error.response.headers);
@@ -42,13 +43,14 @@ function App() {
         console.error(error.config);
       });
   }
-
+  
   return (
-   <Fragment>
-     <Form
+    <div className="bg-info">
+      <Form
         saveSearchFromUser = {saveSearchFromUser}
-     />
-   </Fragment>
+        errorApi = {errorApi}
+      />
+    </div>
   );
 }
 

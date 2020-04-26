@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
+import ApiError from './ApiError';
 
-const Form = ({saveSearchFromUser}) => {
-
+const Form = ({saveSearchFromUser, errorApi}) => {
     const [search, saveSearch] = useState(
         {
             musicTeam: '',
@@ -9,24 +9,27 @@ const Form = ({saveSearchFromUser}) => {
         });
 
     const [error, saveError] = useState(false);
-    
+
     const updateState = e => {
         saveSearch({...search, [e.target.name]: e.target.value});
     }
 
     const searchWithParameters = e => {
+        
         e.preventDefault();
-        if (search == null || search.musicTeam.trim() === '' || search.song.trim() === '') {
+
+        if ((search == null || search.musicTeam.trim() === '' || search.song.trim() === '')) {
             saveError(true);
             return;
         }
+    
         saveError(false);
         saveSearchFromUser(search);
     }
-        
+    
     return(
-        <div className="bg-info">
             <div className="container">
+            {errorApi !== '' ? <ApiError errorApi = {errorApi}/> : null}
             {error ? <p className="alert alert-danger text-center p-2">Please introduce an artist's name AND a song</p> : null}
                 <div className="row">
                     <form 
@@ -67,7 +70,6 @@ const Form = ({saveSearchFromUser}) => {
                     </form>
                 </div>
             </div>
-        </div>    
     );
 }
 
