@@ -1,5 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import Form from './components/Form';
+import Song from './components/Song'; 
+
 import axios from 'axios'; 
 
 function App() {
@@ -7,7 +9,6 @@ function App() {
   const [searchFromUser, saveSearchFromUser] = useState({});
   const [resultFromApi, saveresultFromApi] = useState({});
   const [errorApi, saveErrorApi] = useState('');
-
 
   useEffect(() => {
 
@@ -45,12 +46,26 @@ function App() {
   }
   
   return (
-    <div className="bg-info">
+    <Fragment>
       <Form
         saveSearchFromUser = {saveSearchFromUser}
         errorApi = {errorApi}
       />
-    </div>
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-md-6">
+
+
+          </div>
+          <div className="col-md-6">
+            <Song
+            resultFromApi = {resultFromApi}
+            errorApi = {errorApi}
+            />
+          </div>
+        </div>
+       </div>
+    </Fragment>
   );
 }
 

@@ -28,6 +28,7 @@ const Form = ({saveSearchFromUser, errorApi}) => {
     }
     
     return(
+        <div className="bg-info">
             <div className="container">
             {errorApi !== '' ? <ApiError errorApi = {errorApi}/> : null}
             {error ? <p className="alert alert-danger text-center p-2">Please introduce an artist's name AND a song</p> : null}
@@ -70,6 +71,7 @@ const Form = ({saveSearchFromUser, errorApi}) => {
                     </form>
                 </div>
             </div>
+        </div>
     );
 }
 
